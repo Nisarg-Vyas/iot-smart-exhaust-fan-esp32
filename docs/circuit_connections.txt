@@ -1,0 +1,124 @@
+IOT SMART EXHAUST FAN
+Hardware Connection Guide
+-------------------------
+
+## Project Overview
+
+This IoT Smart Exhaust Fan system uses an ESP32 microcontroller to monitor environmental conditions using sensors and control a fan automatically.
+
+Sensors used:
+
+1. DHT11 – Measures temperature and humidity
+2. MQ135 – Measures air quality / gas concentration
+
+The fan is controlled using an L298N motor driver module powered by a 12V source.
+
+NOTE:
+In the reference YouTube video, a relay module was used to turn the fan ON/OFF.
+In this project, the relay is replaced with an L298N motor driver so that the fan can be controlled using PWM if needed.
+
+## Hardware Components
+
+1. ESP32 DevKit V1
+2. DHT11 Temperature and Humidity Sensor
+3. MQ135 Gas Sensor
+4. L298N Motor Driver
+5. 12V DC Fan
+6. 12V Power Supply
+7. Jumper wires
+
+## Power Distribution
+
+ESP32 is powered using USB (5V).
+
+The L298N motor driver is powered using a 12V external power supply.
+
+The sensors are powered using the 3.3V pin of ESP32.
+
+---
+
+## ESP32 Pin Connections
+
+## DHT11 Sensor
+
+VCC  → ESP32 3.3V
+GND  → ESP32 GND
+DATA → ESP32 GPIO4
+
+## MQ135 Gas Sensor
+
+VCC  → ESP32 5V
+GND  → ESP32 GND
+A0 (Analog Output) → ESP32 GPIO34
+
+## L298N Motor Driver
+
+Control Pins (connected to ESP32)
+
+IN1 → ESP32 GPIO26
+IN2 → ESP32 GPIO27
+ENA → ESP32 GPIO25 (PWM control pin)
+
+Power Pins
+
+12V → 12V External Power Supply
+GND → Common GND (connect with ESP32 GND)
+
+## Motor Output (Fan)
+
+OUT1 → Fan Positive Terminal
+OUT2 → Fan Negative Terminal
+
+---
+
+## Complete Wiring Summary
+
+ESP32 3.3V → DHT11 VCC
+ESP32 GND → DHT11 GND
+
+ESP32 GPIO4 → DHT11 DATA
+
+ESP32 5V → MQ135 VCC
+ESP32 GND → MQ135 GND
+ESP32 GPIO34 → MQ135 Analog Output
+
+ESP32 GPIO26 → L298N IN1
+ESP32 GPIO27 → L298N IN2
+ESP32 GPIO25 → L298N ENA
+
+12V Power Supply → L298N 12V Pin
+
+L298N OUT1 → Fan Positive
+L298N OUT2 → Fan Negative
+
+---
+
+## Important Notes
+
+1. All grounds must be common.
+   Connect ESP32 GND with L298N GND.
+
+2. Do NOT connect the fan directly to ESP32.
+
+3. The L298N motor driver is required to handle the 12V fan load.
+
+4. GPIO25 can be used for PWM to control fan speed.
+
+5. MQ135 requires some warm-up time for stable readings.
+
+6. Ensure correct polarity when connecting the fan.
+
+---
+
+## System Working
+
+1. ESP32 reads temperature and humidity from the DHT11 sensor.
+2. ESP32 reads air quality data from the MQ135 sensor.
+3. If the gas level or temperature exceeds a threshold:
+   → ESP32 activates the fan using the L298N driver.
+4. Fan speed can be controlled using PWM through the ENA pin.
+5. Sensor values and fan control can be integrated with an IoT platform such as Blynk.
+
+---
+
+## End of File
