@@ -1,137 +1,177 @@
-# IoT Enabled Smart Exhaust Fan (ESP32)
+# IoT Enabled Smart Exhaust Fan using ESP32
 
-An IoT-based smart exhaust fan system that automatically controls ventilation based on environmental conditions such as humidity and air quality.
-
-The system uses an **ESP32 microcontroller** along with **DHT11** and **MQ135 gas sensors** to monitor environmental conditions and automatically activate an exhaust fan when thresholds are exceeded. The system also supports **manual control and real-time monitoring through the Blynk mobile application**.
+An **IoT-based Smart Exhaust Fan system** that monitors air quality and temperature using sensors and automatically controls a ventilation fan. The system can also be monitored and controlled remotely using the **Blynk IoT platform**.
 
 ---
 
-## Features
+# 📌 Project Overview
 
-* Automatic fan control based on humidity and air quality
-* Real-time monitoring through the Blynk mobile application
-* Manual fan control using the mobile interface
-* Wi-Fi based remote monitoring and control
-* Low-cost IoT automation system
+Indoor air quality and ventilation are important for maintaining a healthy environment. This project uses an **ESP32 microcontroller** along with environmental sensors to detect air quality and temperature and automatically control an exhaust fan.
 
----
+The system reads:
 
-## Hardware Components
+* **Temperature and Humidity** using the **DHT11 sensor**
+* **Air Quality / Gas Levels** using the **MQ135 gas sensor**
 
-* ESP32 DevKit V1
-* DHT11 Temperature and Humidity Sensor
-* MQ135 Gas Sensor (Air Quality Sensor)
-* L298N Motor Driver
-* DC Motor / Exhaust Fan
-* External Power Supply
-* Connecting wires and breadboard
+If the air quality crosses a predefined threshold, the ESP32 activates a **12V exhaust fan** using an **L298N motor driver**.
+
+Unlike many similar projects that use a **relay module**, this implementation uses an **L298N motor driver**, which allows better control of the fan and enables possible **PWM speed control**.
 
 ---
 
-## System Architecture
+# 🧰 Hardware Components
 
-The system continuously monitors environmental conditions using sensors connected to the ESP32.
-
-* **DHT11** measures temperature and humidity
-* **MQ135** detects air quality including smoke, CO₂, and other gases
-* **ESP32** processes sensor data and decides whether the fan should run
-* **L298N motor driver** controls the exhaust fan motor
-* **Blynk mobile application** provides real-time monitoring and manual control
-
-When the sensor readings exceed predefined thresholds, the ESP32 automatically activates the exhaust fan to improve ventilation.
-
----
-
-## Circuit Setup
-
-![Circuit Diagram](images/circuit.jpg)
+| Component          | Description                           |
+| ------------------ | ------------------------------------- |
+| ESP32 DevKit V1    | Main microcontroller with WiFi        |
+| MQ135 Gas Sensor   | Detects air quality and harmful gases |
+| DHT11 Sensor       | Measures temperature and humidity     |
+| L298N Motor Driver | Drives the exhaust fan                |
+| 12V DC Fan         | Ventilation fan                       |
+| 12V Power Supply   | Powers the fan                        |
+| Jumper Wires       | Electrical connections                |
 
 ---
 
-## Hardware Setup
+# ⚙️ System Architecture
 
-![Hardware Setup](images/setup.jpg)
+```
+MQ135 Sensor  ----\
+                   \
+                    --> ESP32 --> L298N Motor Driver --> Exhaust Fan
+                   /
+DHT11 Sensor  ----/
 
----
+             |
+             |
+          WiFi
+             |
+         Blynk App
+```
 
-## Sensor Thresholds
-
-| Parameter   | Threshold |
-| ----------- | --------- |
-| Humidity    | 60%       |
-| Smoke / Gas | 200 ppm   |
-| Air Quality | 300 ppm   |
-| CO₂         | 400 ppm   |
-
-If any of these thresholds are exceeded, the exhaust fan is automatically turned ON.
-
----
-
-## Blynk Dashboard
-
-The **Blynk mobile application** is used to monitor environmental data and control the exhaust fan remotely.
-
-The dashboard displays:
-
-* Air Quality Level
-* Temperature
-* Humidity
-* Fan Status
-
-It also includes a **manual control switch** that allows the user to override the automatic mode.
+The ESP32 reads sensor values, processes them, and controls the fan accordingly while also communicating with the **Blynk IoT platform**.
 
 ---
 
-## Code
+# 🔌 Circuit Diagram
 
-The ESP32 firmware used for this project is available in the following directory:
+The complete circuit diagram for the project is provided below.
 
-code/smart_exhaust_fan.ino
+![Circuit Diagram](docs/circuit_diagram.png)
 
-The code handles:
+For detailed wiring and pin connections refer to:
 
-* Sensor data acquisition
-* Environmental threshold detection
-* Motor driver control
-* Blynk communication over Wi-Fi
+```
+docs/circuit_connections.txt
+```
 
----
-
-## Demo Video
-
-(Add your YouTube demo video link here)
-
-Example:
-
-https://youtube.com/your-video-link
+This file contains the full pin mapping and connection details.
 
 ---
 
-## Applications
+# 📱 Blynk IoT Dashboard
 
-This project can be used in several real-world applications:
+The system can be monitored and controlled using the **Blynk mobile application**.
 
-* Smart home ventilation systems
-* Kitchen exhaust automation
-* Indoor air quality monitoring
-* Industrial ventilation systems
-* IoT-based environmental monitoring
+![Blynk Dashboard](images/blynk.png)
 
----
+Features available through Blynk:
 
-## Future Improvements
-
-* Integration with additional sensors (CO₂, PM2.5, etc.)
-* Data logging and analytics using cloud services
-* Mobile notifications for poor air quality
-* Integration with home automation platforms
+* Monitor sensor readings
+* Turn the fan ON/OFF remotely
+* Real-time monitoring through WiFi
 
 ---
 
-## Author
+# 📷 Hardware Setup
 
+### Internal View
+
+![Internal Setup](images/view_from_in.png)
+
+### External View
+
+![External Setup](images/view_from_out.png)
+
+---
+
+# 🎥 Project Demonstration
+
+A working demonstration of the project is available in the repository.
+
+You can find the video in:
+
+```
+videos/
+```
+
+Download or view the demonstration video directly from the GitHub repository.
+
+---
+
+# 💻 Source Code
+
+The Arduino code for the project is available in:
+
+```
+codes/smart_exhaust_fan.ino
+```
+
+Upload the code to the ESP32 using the **Arduino IDE**.
+
+Required libraries:
+
+```
+Blynk
+DHT Sensor Library
+Adafruit Unified Sensor Library
+```
+
+---
+
+# 🚀 Working Principle
+
+1. The **DHT11 sensor** measures temperature and humidity.
+2. The **MQ135 sensor** measures air quality and gas concentration.
+3. ESP32 continuously monitors these sensor values.
+4. If air quality exceeds the defined threshold:
+
+   * ESP32 activates the fan through the **L298N motor driver**.
+5. Sensor data and fan control can be monitored using the **Blynk IoT app**.
+
+---
+
+# 📁 Repository Structure
+
+```
+iot-smart-exhaust-fan-esp32
+│
+├── codes
+│   └── smart_exhaust_fan.ino
+│
+├── docs
+│   ├── circuit_connections.txt
+│   └── circuit_diagram.png
+│
+├── images
+│   ├── blynk.png
+│   ├── view_from_in.png
+│   └── view_from_out.png
+│
+├── videos
+│
+├── LICENSE
+└── README.md
+```
+
+---
+
+# 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+# 👨‍💻 Author
 **Nisarg Vyas**
-B.Tech Computer Science and Engineering
-IIIT Vadodara (IIITV-ICD)
-
-Interested in **Robotics, Embedded Systems, and IoT-based automation projects**.
+Computer Science Engineering Student
