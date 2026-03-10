@@ -108,7 +108,7 @@ Location:
 videos/
 ```
 
-You can download or view the demonstration directly from the GitHub repository.
+You can download the demonstration directly from the GitHub repository.
 
 ---
 
@@ -143,31 +143,6 @@ Adafruit Unified Sensor
 
 ---
 
-# 📁 Repository Structure
-
-```
-iot-smart-exhaust-fan-esp32
-│
-├── codes
-│   └── smart_exhaust_fan.ino
-│
-├── docs
-│   ├── circuit_connections.txt
-│   └── circuit_diagram.png
-│
-├── images
-│   ├── blynk.png
-│   ├── view_from_in.png
-│   └── view_from_out.png
-│
-├── videos
-│
-├── LICENSE
-└── README.md
-```
-
----
-
 # 📜 License
 
 This project is released under the **MIT License**.
@@ -175,5 +150,5 @@ This project is released under the **MIT License**.
 ---
 
 # 👨‍💻 Author
-**Nisarg Vyas**
+**Nisarg Vyas**  
 Computer Science Engineering Student
